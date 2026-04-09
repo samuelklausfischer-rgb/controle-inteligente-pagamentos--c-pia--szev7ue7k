@@ -1,0 +1,388 @@
+// AVOID UPDATING THIS FILE DIRECTLY. It is automatically generated.
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
+
+export type Database = {
+  // Allows to automatically instantiate createClient with right options
+  // instead of createClient<Database, { PostgrestVersion: 'XX' }>(URL, KEY)
+  __InternalSupabase: {
+    PostgrestVersion: "14.4"
+  }
+  public: {
+    Tables: {
+      alertas: {
+        Row: {
+          data_alerta: string
+          enviado: boolean
+          id: string
+          percentual_variacao: number
+          tipo_alerta: string
+          unidade_id: string | null
+        }
+        Insert: {
+          data_alerta?: string
+          enviado?: boolean
+          id?: string
+          percentual_variacao: number
+          tipo_alerta: string
+          unidade_id?: string | null
+        }
+        Update: {
+          data_alerta?: string
+          enviado?: boolean
+          id?: string
+          percentual_variacao?: number
+          tipo_alerta?: string
+          unidade_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "alertas_unidade_id_fkey"
+            columns: ["unidade_id"]
+            isOneToOne: false
+            referencedRelation: "unidades"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      kpis_diarios: {
+        Row: {
+          custos_totais: number
+          data: string
+          despesas_totais: number
+          ebitda: number
+          faturamento_bruto: number
+          id: string
+          margem_contribuicao: number
+          resultado_financeiro: number
+          unidade_id: string | null
+        }
+        Insert: {
+          custos_totais?: number
+          data: string
+          despesas_totais?: number
+          ebitda?: number
+          faturamento_bruto?: number
+          id?: string
+          margem_contribuicao?: number
+          resultado_financeiro?: number
+          unidade_id?: string | null
+        }
+        Update: {
+          custos_totais?: number
+          data?: string
+          despesas_totais?: number
+          ebitda?: number
+          faturamento_bruto?: number
+          id?: string
+          margem_contribuicao?: number
+          resultado_financeiro?: number
+          unidade_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "kpis_diarios_unidade_id_fkey"
+            columns: ["unidade_id"]
+            isOneToOne: false
+            referencedRelation: "unidades"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      unidades: {
+        Row: {
+          ativa: boolean
+          id: string
+          nome: string
+          tipo: string
+        }
+        Insert: {
+          ativa?: boolean
+          id?: string
+          nome: string
+          tipo: string
+        }
+        Update: {
+          ativa?: boolean
+          id?: string
+          nome?: string
+          tipo?: string
+        }
+        Relationships: []
+      }
+      usuarios: {
+        Row: {
+          ativo: boolean
+          email: string
+          id: string
+          role: string
+          senha_hash: string | null
+        }
+        Insert: {
+          ativo?: boolean
+          email: string
+          id: string
+          role?: string
+          senha_hash?: string | null
+        }
+        Update: {
+          ativo?: boolean
+          email?: string
+          id?: string
+          role?: string
+          senha_hash?: string | null
+        }
+        Relationships: []
+      }
+    }
+    Views: {
+      [_ in never]: never
+    }
+    Functions: {
+      [_ in never]: never
+    }
+    Enums: {
+      [_ in never]: never
+    }
+    CompositeTypes: {
+      [_ in never]: never
+    }
+  }
+}
+
+type DatabaseWithoutInternals = Omit<Database, "__InternalSupabase">
+
+type DefaultSchema = DatabaseWithoutInternals[Extract<keyof Database, "public">]
+
+export type Tables<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof (DefaultSchema["Tables"] & DefaultSchema["Views"])
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+        DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? (DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"] &
+      DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Views"])[TableName] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])
+    ? (DefaultSchema["Tables"] &
+        DefaultSchema["Views"])[DefaultSchemaTableNameOrOptions] extends {
+        Row: infer R
+      }
+      ? R
+      : never
+    : never
+
+export type TablesInsert<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Insert: infer I
+      }
+      ? I
+      : never
+    : never
+
+export type TablesUpdate<
+  DefaultSchemaTableNameOrOptions extends
+    | keyof DefaultSchema["Tables"]
+    | { schema: keyof DatabaseWithoutInternals },
+  TableName extends DefaultSchemaTableNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"]
+    : never = never,
+> = DefaultSchemaTableNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaTableNameOrOptions["schema"]]["Tables"][TableName] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : DefaultSchemaTableNameOrOptions extends keyof DefaultSchema["Tables"]
+    ? DefaultSchema["Tables"][DefaultSchemaTableNameOrOptions] extends {
+        Update: infer U
+      }
+      ? U
+      : never
+    : never
+
+export type Enums<
+  DefaultSchemaEnumNameOrOptions extends
+    | keyof DefaultSchema["Enums"]
+    | { schema: keyof DatabaseWithoutInternals },
+  EnumName extends DefaultSchemaEnumNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"]
+    : never = never,
+> = DefaultSchemaEnumNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[DefaultSchemaEnumNameOrOptions["schema"]]["Enums"][EnumName]
+  : DefaultSchemaEnumNameOrOptions extends keyof DefaultSchema["Enums"]
+    ? DefaultSchema["Enums"][DefaultSchemaEnumNameOrOptions]
+    : never
+
+export type CompositeTypes<
+  PublicCompositeTypeNameOrOptions extends
+    | keyof DefaultSchema["CompositeTypes"]
+    | { schema: keyof DatabaseWithoutInternals },
+  CompositeTypeName extends PublicCompositeTypeNameOrOptions extends {
+    schema: keyof DatabaseWithoutInternals
+  }
+    ? keyof DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"]
+    : never = never,
+> = PublicCompositeTypeNameOrOptions extends {
+  schema: keyof DatabaseWithoutInternals
+}
+  ? DatabaseWithoutInternals[PublicCompositeTypeNameOrOptions["schema"]]["CompositeTypes"][CompositeTypeName]
+  : PublicCompositeTypeNameOrOptions extends keyof DefaultSchema["CompositeTypes"]
+    ? DefaultSchema["CompositeTypes"][PublicCompositeTypeNameOrOptions]
+    : never
+
+export const Constants = {
+  public: {
+    Enums: {},
+  },
+} as const
+
+
+// ====== DATABASE EXTENDED CONTEXT (auto-generated) ======
+// This section contains actual PostgreSQL column types, constraints, RLS policies,
+// functions, triggers, indexes and materialized views not present in the type definitions above.
+// IMPORTANT: The TypeScript types above map UUID, TEXT, VARCHAR all to "string".
+// Use the COLUMN TYPES section below to know the real PostgreSQL type for each column.
+// Always use the correct PostgreSQL type when writing SQL migrations.
+
+// --- COLUMN TYPES (actual PostgreSQL types) ---
+// Use this to know the real database type when writing migrations.
+// "string" in TypeScript types above may be uuid, text, varchar, timestamptz, etc.
+// Table: alertas
+//   id: uuid (not null, default: gen_random_uuid())
+//   unidade_id: uuid (nullable)
+//   tipo_alerta: text (not null)
+//   percentual_variacao: numeric (not null)
+//   data_alerta: timestamp without time zone (not null, default: now())
+//   enviado: boolean (not null, default: false)
+// Table: kpis_diarios
+//   id: uuid (not null, default: gen_random_uuid())
+//   unidade_id: uuid (nullable)
+//   data: date (not null)
+//   faturamento_bruto: numeric (not null, default: 0)
+//   custos_totais: numeric (not null, default: 0)
+//   despesas_totais: numeric (not null, default: 0)
+//   margem_contribuicao: numeric (not null, default: 0)
+//   resultado_financeiro: numeric (not null, default: 0)
+//   ebitda: numeric (not null, default: 0)
+// Table: unidades
+//   id: uuid (not null, default: gen_random_uuid())
+//   nome: text (not null)
+//   tipo: text (not null)
+//   ativa: boolean (not null, default: true)
+// Table: usuarios
+//   id: uuid (not null)
+//   email: text (not null)
+//   senha_hash: text (nullable)
+//   role: text (not null, default: 'viewer'::text)
+//   ativo: boolean (not null, default: true)
+
+// --- CONSTRAINTS ---
+// Table: alertas
+//   PRIMARY KEY alertas_pkey: PRIMARY KEY (id)
+//   CHECK alertas_tipo_alerta_check: CHECK ((tipo_alerta = ANY (ARRAY['receita'::text, 'despesa'::text])))
+//   FOREIGN KEY alertas_unidade_id_fkey: FOREIGN KEY (unidade_id) REFERENCES unidades(id) ON DELETE CASCADE
+// Table: kpis_diarios
+//   PRIMARY KEY kpis_diarios_pkey: PRIMARY KEY (id)
+//   FOREIGN KEY kpis_diarios_unidade_id_fkey: FOREIGN KEY (unidade_id) REFERENCES unidades(id) ON DELETE CASCADE
+// Table: unidades
+//   PRIMARY KEY unidades_pkey: PRIMARY KEY (id)
+//   CHECK unidades_tipo_check: CHECK ((tipo = ANY (ARRAY['matriz'::text, 'filial'::text])))
+// Table: usuarios
+//   UNIQUE usuarios_email_key: UNIQUE (email)
+//   FOREIGN KEY usuarios_id_fkey: FOREIGN KEY (id) REFERENCES auth.users(id) ON DELETE CASCADE
+//   PRIMARY KEY usuarios_pkey: PRIMARY KEY (id)
+//   CHECK usuarios_role_check: CHECK ((role = ANY (ARRAY['admin'::text, 'viewer'::text])))
+
+// --- ROW LEVEL SECURITY POLICIES ---
+// Table: alertas
+//   Policy "Allow all authenticated users on alertas" (ALL, PERMISSIVE) roles={authenticated}
+//     USING: true
+// Table: kpis_diarios
+//   Policy "Allow all authenticated users on kpis_diarios" (ALL, PERMISSIVE) roles={authenticated}
+//     USING: true
+// Table: unidades
+//   Policy "Allow all authenticated users on unidades" (ALL, PERMISSIVE) roles={authenticated}
+//     USING: true
+// Table: usuarios
+//   Policy "Allow all authenticated users on usuarios" (ALL, PERMISSIVE) roles={authenticated}
+//     USING: true
+
+// --- DATABASE FUNCTIONS ---
+// FUNCTION rls_auto_enable()
+//   CREATE OR REPLACE FUNCTION public.rls_auto_enable()
+//    RETURNS event_trigger
+//    LANGUAGE plpgsql
+//    SECURITY DEFINER
+//    SET search_path TO 'pg_catalog'
+//   AS $function$
+//   DECLARE
+//     cmd record;
+//   BEGIN
+//     FOR cmd IN
+//       SELECT *
+//       FROM pg_event_trigger_ddl_commands()
+//       WHERE command_tag IN ('CREATE TABLE', 'CREATE TABLE AS', 'SELECT INTO')
+//         AND object_type IN ('table','partitioned table')
+//     LOOP
+//        IF cmd.schema_name IS NOT NULL AND cmd.schema_name IN ('public') AND cmd.schema_name NOT IN ('pg_catalog','information_schema') AND cmd.schema_name NOT LIKE 'pg_toast%' AND cmd.schema_name NOT LIKE 'pg_temp%' THEN
+//         BEGIN
+//           EXECUTE format('alter table if exists %s enable row level security', cmd.object_identity);
+//           RAISE LOG 'rls_auto_enable: enabled RLS on %', cmd.object_identity;
+//         EXCEPTION
+//           WHEN OTHERS THEN
+//             RAISE LOG 'rls_auto_enable: failed to enable RLS on %', cmd.object_identity;
+//         END;
+//        ELSE
+//           RAISE LOG 'rls_auto_enable: skip % (either system schema or not in enforced list: %.)', cmd.object_identity, cmd.schema_name;
+//        END IF;
+//     END LOOP;
+//   END;
+//   $function$
+//   
+
+// --- INDEXES ---
+// Table: usuarios
+//   CREATE UNIQUE INDEX usuarios_email_key ON public.usuarios USING btree (email)
+
