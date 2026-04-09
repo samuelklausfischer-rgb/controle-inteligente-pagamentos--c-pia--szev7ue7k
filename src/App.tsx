@@ -1,28 +1,49 @@
-/* Main App Component - Handles routing (using react-router-dom), query client and other providers - use this file to add all routes */
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
 import { Toaster } from '@/components/ui/toaster'
 import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
-import Index from './pages/Index'
-import NotFound from './pages/NotFound'
-import Layout from './components/Layout'
+import { AuthProvider } from '@/contexts/auth-context'
+import { ProtectedRoute } from '@/components/protected-route'
+import { RootLayout } from '@/components/layout/root-layout'
+import { AnimatedBackground } from '@/components/animated-background'
 
-// ONLY IMPORT AND RENDER WORKING PAGES, NEVER ADD PLACEHOLDER COMPONENTS OR PAGES IN THIS FILE
-// AVOID REMOVING ANY CONTEXT PROVIDERS FROM THIS FILE (e.g. TooltipProvider, Toaster, Sonner)
+// Pages
+import Login from './pages/auth/login'
+import Dashboard from './pages/dashboard'
+import Payees from './pages/payees'
+import Payments from './pages/payments'
+import Reports from './pages/reports'
+import Settings from './pages/settings'
+import NotFound from './pages/NotFound'
 
 const App = () => (
   <BrowserRouter future={{ v7_startTransition: false, v7_relativeSplatPath: false }}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <Routes>
-        <Route element={<Layout />}>
-          <Route path="/" element={<Index />} />
-          {/* ADD ALL CUSTOM ROUTES MUST BE ADDED HERE */}
-        </Route>
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </TooltipProvider>
+    <AuthProvider>
+      <TooltipProvider>
+        <AnimatedBackground />
+        <Toaster />
+        <Sonner />
+        <Routes>
+          {/* Public Route */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Protected Routes inside App Layout */}
+          <Route element={<ProtectedRoute />}>
+            <Route element={<RootLayout />}>
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/recebedores" element={<Payees />} />
+              <Route path="/pagamentos" element={<Payments />} />
+              <Route path="/relatorios" element={<Reports />} />
+              <Route path="/configuracoes" element={<Settings />} />
+            </Route>
+          </Route>
+
+          {/* 404 */}
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </TooltipProvider>
+    </AuthProvider>
   </BrowserRouter>
 )
 
